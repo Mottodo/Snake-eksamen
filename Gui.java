@@ -69,7 +69,7 @@ public class Gui {
 		
 		lblSnake = new JLabel("Snake");
 		lblSnake.setFont(new Font("Consolas", Font.BOLD | Font.ITALIC, 14));
-		lblSnake.setBounds(177, 27, 46, 14);
+		lblSnake.setBounds(189, 11, 46, 14);
 		frame.getContentPane().add(lblSnake);
 		
 		passwordField = new JPasswordField();
