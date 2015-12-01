@@ -7,17 +7,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Gui extends JPanel {
 
 	private JTextField textField;
 	private JLabel lblSnake;
 	private JPasswordField passwordField;
-
+	private Main Client;
+	
 	/**
 	 * Create the panel.
 	 */
-	public Gui() {
+	public Gui(Main Client) {
+		this.Client = Client;
 		
 		this.setForeground(new Color(0, 255, 255));
 		this.setBackground(new Color(153, 255, 102));
@@ -50,13 +54,21 @@ public class Gui extends JPanel {
 		passwordField.setBackground(new Color(0, 0, 0));
 		passwordField.setBounds(114, 163, 184, 20);
 		this.add(passwordField);
-		
+				
 		JButton btnLogin = new JButton("Login");
+		btnLogin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Gui This = (Gui) (e.getComponent().getParent());
+				
+				This.Client.changePage(new SnakeMenu(This.Client));
+			}
+		});
 		btnLogin.setFont(new Font("Consolas", Font.BOLD, 14));
 		btnLogin.setBounds(162, 207, 89, 23);
 		this.add(btnLogin);
 	
 
 	}
-
+	
 }

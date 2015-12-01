@@ -1,22 +1,28 @@
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GamePage extends JPanel {
 	
 	private JTextField textField;
-
+	private Main Client;
 	/**
 	 * Create the panel.
 	 */
-	public GamePage() {
+	public GamePage(Main Client) {
 		
+		this.Client = Client; 
 		
 		this.setBackground(new Color(153, 255, 102));
 		
@@ -53,17 +59,44 @@ public class GamePage extends JPanel {
 		lblNewLabel_2.setFont(new Font("Consolas", Font.BOLD, 11));
 		lblNewLabel_2.setBounds(240, 46, 99, 14);
 		this.add(lblNewLabel_2);
+
+		DefaultListModel test = new DefaultListModel();
+		test.addElement("Jane Doe");
+		test.addElement("Jane Doe");
 		
-		JList list = new JList();
-		list.setBounds(240, 71, 96, 73);
-		this.add(list);
+		JList list = new JList();		
+		list.setModel(test);
 		
+		JScrollPane scrollPane_1 = new JScrollPane(list);
+		scrollPane_1.setBounds(240, 71, 96, 73);
+		this.add(scrollPane_1);
+
 		JLabel lblLogout = new JLabel("Logout");
+		lblLogout.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GamePage This = (GamePage) (e.getComponent().getParent());
+				
+				This.Client.changePage(new Gui(This.Client));
+				
+			}
+		});
 		lblLogout.setFont(new Font("Consolas", Font.BOLD, 11));
 		lblLogout.setBounds(378, 237, 46, 14);
 		this.add(lblLogout);
-
+		
+		JLabel lblBack = new JLabel("Back");
+		lblBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GamePage This = (GamePage) (e.getComponent().getParent());
+				
+				This.Client.changePage(new SnakeMenu(This.Client));
+			}
+		});
+		lblBack.setFont(new Font("Consolas", Font.BOLD, 11));
+		lblBack.setBounds(20, 236, 46, 14);
+		add(lblBack);		
 
 	}
-
 }
