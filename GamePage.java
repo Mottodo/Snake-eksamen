@@ -10,19 +10,25 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.SwingConstants;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import javax.swing.JSlider;
 
 public class GamePage extends JPanel {
 	
 	private JTextField textField;
-	private Main Client;
+	private Main client;
 	/**
 	 * Create the panel.
 	 */
-	public GamePage(Main Client) {
+	public GamePage(Main client) {
 		
-		this.Client = Client; 
+		this.client = client; 
 		
 		this.setBackground(new Color(153, 255, 102));
 		
@@ -40,7 +46,38 @@ public class GamePage extends JPanel {
 		textField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Create game");
-		btnNewButton.setFont(new Font("Consolas", Font.BOLD, 10));
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GamePage This = (GamePage) (e.getComponent().getParent());
+				
+				
+				JSONObject CreateGame = new JSONObject();
+				
+				try {
+					CreateGame.put("GameName", This.textField.getText());
+					CreateGame.put("Method", "CreateGame");
+					 
+					JSONObject result = This.client.request(CreateGame);
+					
+					
+					
+					if (result != null && result.has("Result")) {
+						
+						if (result.getBoolean("Result")) {
+							This.client.changePage(new Game(This.client));
+						}
+						
+					}
+				
+				} catch (JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			
+			}
+		});
+		btnNewButton.setFont(new Font("Consolas", Font.BOLD, 9));
 		btnNewButton.setBounds(79, 157, 99, 23);
 		this.add(btnNewButton);
 		
@@ -49,9 +86,9 @@ public class GamePage extends JPanel {
 		btnJoinGame.setBounds(240, 157, 99, 23);
 		this.add(btnJoinGame);
 		
-		JLabel lblNewLabel_1 = new JLabel("<html>Insert new<br> game name</html>");
-		lblNewLabel_1.setFont(new Font("Consolas", Font.BOLD, 10));
-		lblNewLabel_1.setBounds(79, 46, 96, 35);
+		JLabel lblNewLabel_1 = new JLabel("<html> Game name</html>");
+		lblNewLabel_1.setFont(new Font("Consolas", Font.BOLD, 11));
+		lblNewLabel_1.setBounds(79, 34, 96, 35);
 		this.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Games");
@@ -77,7 +114,7 @@ public class GamePage extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				GamePage This = (GamePage) (e.getComponent().getParent());
 				
-				This.Client.changePage(new Gui(This.Client));
+				This.client.changePage(new Gui(This.client));
 				
 			}
 		});
@@ -91,12 +128,12 @@ public class GamePage extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				GamePage This = (GamePage) (e.getComponent().getParent());
 				
-				This.Client.changePage(new SnakeMenu(This.Client));
+				This.client.changePage(new SnakeMenu(This.client));
 			}
 		});
 		lblBack.setFont(new Font("Consolas", Font.BOLD, 11));
 		lblBack.setBounds(20, 236, 46, 14);
-		add(lblBack);		
+		add(lblBack);
 
 	}
 }

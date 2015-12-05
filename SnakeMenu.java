@@ -9,13 +9,13 @@ import java.awt.event.MouseEvent;
 
 public class SnakeMenu extends JPanel {
 
-	private Main Client;
+	private Main client;
 	/**
 	 * Create the panel.
 	 */
-	public SnakeMenu(Main Client) {
+	public SnakeMenu(Main client) {
 		
-		this.Client = Client;
+		this.client = client;
 		
 		this.setBackground(new Color(153, 255, 102));
 		this.setLayout(null);
@@ -31,7 +31,7 @@ public class SnakeMenu extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				SnakeMenu This = (SnakeMenu) (e.getComponent().getParent());
 				
-				This.Client.changePage(new GamePage(This.Client));
+				This.client.changePage(new GamePage(This.client));
 			}
 		});
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -45,7 +45,7 @@ public class SnakeMenu extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				SnakeMenu This = (SnakeMenu) (e.getComponent().getParent());
 				
-				This.Client.changePage(new HighscorePage(This.Client));
+				This.client.changePage(new HighscorePage(This.client));
 			}
 		});
 		lblHighscore.setHorizontalAlignment(SwingConstants.CENTER);
@@ -59,7 +59,7 @@ public class SnakeMenu extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				SnakeMenu This = (SnakeMenu) (e.getComponent().getParent());
 				
-				This.Client.changePage(new Gui(This.Client));
+				This.client.changePage(new Gui(This.client));
 			}
 		});
 		lblNewLabel_2.setFont(new Font("Consolas", Font.BOLD, 11));

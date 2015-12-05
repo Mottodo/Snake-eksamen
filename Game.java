@@ -8,13 +8,13 @@ import javax.swing.JLabel;
 
 public class Game extends JPanel {
 
-	private Main Client;
+	private Main client;
 	
 	/**
 	 * Create the panel.
 	 */
-	public Game(Main Client) {
-		this.Client = Client;
+	public Game(Main client) {
+		this.client = client;
 		
 		setBackground(new Color(153, 255, 102));
 		setLayout(null);

@@ -7,18 +7,22 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class HighscorePage extends JPanel {
 
-	private Main Client;
+	private Main client;
 	/**
 	 * Create the panel.
 	 */
-	public HighscorePage(Main Client) {
+	public HighscorePage(Main client) {
 		
-		this.Client = Client;
+		this.client = client;
 		
 		this.setBackground(new Color(153, 255, 102));
 		this.setLayout(null);
@@ -29,7 +33,7 @@ public class HighscorePage extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				HighscorePage This = (HighscorePage) (e.getComponent().getParent());
 				
-				This.Client.changePage(new Gui(This.Client));
+				This.client.changePage(new Gui(This.client));
 			}
 		});
 		lblNewLabel.setFont(new Font("Consolas", Font.BOLD, 11));
@@ -75,19 +79,62 @@ public class HighscorePage extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				HighscorePage This = (HighscorePage) (e.getComponent().getParent());
 				
-				This.Client.changePage(new SnakeMenu(This.Client));
+				This.client.changePage(new SnakeMenu(This.client));
 			}
 		});
 		lblBack.setFont(new Font("Consolas", Font.BOLD, 11));
 		lblBack.setBounds(20, 236, 46, 14);
 		add(lblBack);
 		
-		JLabel label = new JLabel("1231");
+		JSONObject UserHighscore = new JSONObject();
+		int Highscore = -1;
+		
+		try {
+			UserHighscore.put("Username", this.client.getCurrentUser());
+			UserHighscore.put("Method", "UserHighscore");
+			 
+			JSONObject result = this.client.request(UserHighscore);
+			
+			
+			
+			if (result != null && result.has("Result")) {
+				
+				Highscore = result.getInt("Result");
+				
+			}
+		
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		JLabel label = new JLabel(Integer.toString(Highscore));
 		label.setFont(new Font("Consolas", Font.BOLD, 14));
 		label.setBounds(50, 120, 46, 14);
 		add(label);
 		
-		JLabel label_1 = new JLabel("1231");
+		JSONObject GlobalHighscore = new JSONObject();
+		Highscore = -1;
+		
+		try {
+			GlobalHighscore.put("Method", "GlobalHighscore");
+			 
+			JSONObject result = this.client.request(GlobalHighscore);
+			
+			
+			
+			if (result != null && result.has("Result")) {
+				
+				Highscore = result.getInt("Result");
+				
+			}
+		
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+			
+		JLabel label_1 = new JLabel(Integer.toString(Highscore));
 		label_1.setFont(new Font("Consolas", Font.BOLD, 14));
 		label_1.setBounds(336, 120, 46, 14);
 		add(label_1);

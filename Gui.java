@@ -7,21 +7,26 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 
 public class Gui extends JPanel {
 
-	private JTextField textField;
+	public JTextField textField;
 	private JLabel lblSnake;
 	private JPasswordField passwordField;
-	private Main Client;
+	private Main client;
 	
 	/**
 	 * Create the panel.
 	 */
-	public Gui(Main Client) {
-		this.Client = Client;
+	public Gui(Main client) {
+		this.client = client;
 		
 		this.setForeground(new Color(0, 255, 255));
 		this.setBackground(new Color(153, 255, 102));
@@ -61,7 +66,34 @@ public class Gui extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				Gui This = (Gui) (e.getComponent().getParent());
 				
-				This.Client.changePage(new SnakeMenu(This.Client));
+				
+				JSONObject login = new JSONObject();
+				
+				try {
+					login.put("Username", This.textField.getText());
+					login.put("Password", new String(This.passwordField.getPassword()));
+					login.put("Method", "Login");
+					 
+					JSONObject result = This.client.request(login);
+					
+					
+					
+					if (result != null && result.has("Result")) {
+						
+						if (result.getBoolean("Result")) {
+							This.client.setCurrentUser(This.textField.getText());
+							This.client.changePage(new SnakeMenu(This.client));
+						}
+						
+					}
+				
+				} catch (JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			
+				
+				
 			}
 		});
 		btnLogin.setFont(new Font("Consolas", Font.BOLD, 14));
