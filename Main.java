@@ -19,8 +19,9 @@ public class Main {
 	private String adress = "localhost";
 	private int portNumber = 10800;
 	private Socket socket;
-	private String currentUser;
+	private String currentUser = null;
 	private JFrame frame;
+	
 
 	/**
 	 * Launch the application.

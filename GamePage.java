@@ -80,6 +80,7 @@ public class GamePage extends JPanel {
 				
 				try {
 					CreateGame.put("GameName", This.textField.getText());
+					CreateGame.put("Username", This.client.getCurrentUser());
 					CreateGame.put("Method", "CreateGame");
 					 
 					JSONObject result = This.client.request(CreateGame);
@@ -89,7 +90,7 @@ public class GamePage extends JPanel {
 					if (result != null && result.has("Result")) {
 						
 						if (result.getBoolean("Result")) {
-							This.client.changePage(new Game(This.client));
+							This.client.changePage(new Game(This.client, This.textField.getText()));
 						}
 						
 					}
@@ -130,7 +131,7 @@ public class GamePage extends JPanel {
 						
 						boolean ThisResult = result.getBoolean("Result");
 						if (ThisResult){
-							This.client.changePage(new Game(This.client));
+							This.client.changePage(new Game(This.client, Select.GameName));
 								
 						}
 					}

@@ -26,7 +26,10 @@ public class Gui extends JPanel {
 	 * Create the panel.
 	 */
 	public Gui(Main client) {
+		
 		this.client = client;
+		this.client.setCurrentUser(null);
+		
 		
 		this.setForeground(new Color(0, 255, 255));
 		this.setBackground(new Color(153, 255, 102));
