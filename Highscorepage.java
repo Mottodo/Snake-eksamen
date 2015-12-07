@@ -47,31 +47,18 @@ public class HighscorePage extends JPanel {
 		
 		JLabel lblNewLabel_2 = new JLabel("My Highscore");
 		lblNewLabel_2.setFont(new Font("Consolas", Font.BOLD, 14));
-		lblNewLabel_2.setBounds(25, 70, 100, 14);
+		lblNewLabel_2.setBounds(63, 70, 100, 14);
 		this.add(lblNewLabel_2);
 		
 		DefaultListModel test = new DefaultListModel();
 		test.addElement("Jane Doe");
 		test.addElement("Jane Doe");
 		
-		JList list = new JList();		
-		list.setModel(test);
-		
-		JScrollPane scrollPane_1 = new JScrollPane(list);
-		scrollPane_1.setBounds(135, 104, 151, 147);
-		this.add(scrollPane_1);
-		
 		
 		JLabel lblNewLabel_3 = new JLabel("Global Highscore");
 		lblNewLabel_3.setFont(new Font("Consolas", Font.BOLD, 14));
-		lblNewLabel_3.setBounds(296, 70, 375, 14);
+		lblNewLabel_3.setBounds(260, 70, 375, 14);
 		this.add(lblNewLabel_3);
-		
-		JLabel lblAllHighscores = new JLabel("All Highscores");
-		lblAllHighscores.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAllHighscores.setFont(new Font("Consolas", Font.BOLD, 14));
-		lblAllHighscores.setBounds(135, 70, 151, 14);
-		this.add(lblAllHighscores);
 		
 		JLabel lblBack = new JLabel("Back");
 		lblBack.addMouseListener(new MouseAdapter() {
@@ -110,7 +97,7 @@ public class HighscorePage extends JPanel {
 		
 		JLabel label = new JLabel(Integer.toString(Highscore));
 		label.setFont(new Font("Consolas", Font.BOLD, 14));
-		label.setBounds(50, 120, 46, 14);
+		label.setBounds(89, 120, 46, 14);
 		add(label);
 		
 		JSONObject GlobalHighscore = new JSONObject();
@@ -136,7 +123,7 @@ public class HighscorePage extends JPanel {
 			
 		JLabel label_1 = new JLabel(Integer.toString(Highscore));
 		label_1.setFont(new Font("Consolas", Font.BOLD, 14));
-		label_1.setBounds(336, 120, 46, 14);
+		label_1.setBounds(300, 120, 46, 14);
 		add(label_1);
 
 
