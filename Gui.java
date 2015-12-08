@@ -84,7 +84,9 @@ public class Gui extends JPanel {
 					if (result != null && result.has("Result")) {
 						
 						if (result.getBoolean("Result")) {
-							This.client.setCurrentUser(This.textField.getText());
+							
+							
+							This.client.setCurrentUser(result.getString("Username"));
 							This.client.changePage(new SnakeMenu(This.client));
 						}
 						

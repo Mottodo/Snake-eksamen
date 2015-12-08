@@ -47,7 +47,7 @@ public class GamePage extends JPanel {
 			}
 			public String toString() {
 				
-				return this.GameName + "             " + this.Highscore;
+				return this.GameName + ":" + "     GameScore " + this.Highscore;
 				
 		}
 		
@@ -113,34 +113,36 @@ public class GamePage extends JPanel {
 				GamePage This = (GamePage) (e.getComponent().getParent());
 				
 				JSONObject JoinGame = new JSONObject();
-				
-				
-				try {
-					
-					JListItem Select = (JListItem) This.list.getSelectedValue();
-					
-					JoinGame.put("GameName", Select.GameName);
-					JoinGame.put("Username", This.client.getCurrentUser());
-					JoinGame.put("Method", "JoinGame");
-					 
-					JSONObject result = This.client.request(JoinGame);
+				JListItem Select = (JListItem) This.list.getSelectedValue();
+				if (Select != null){
 					
 					
-					
-					if (result != null && result.has("Result")) {
+					try {
 						
-						boolean ThisResult = result.getBoolean("Result");
-						if (ThisResult){
-							This.client.changePage(new Game(This.client, Select.GameName));
-								
+					
+						
+						JoinGame.put("GameName", Select.GameName);
+						JoinGame.put("Username", This.client.getCurrentUser());
+						JoinGame.put("Method", "JoinGame");
+						 
+						JSONObject result = This.client.request(JoinGame);
+						
+						
+						
+						if (result != null && result.has("Result")) {
+							
+							boolean ThisResult = result.getBoolean("Result");
+							if (ThisResult){
+								This.client.changePage(new Game(This.client, Select.GameName));
+									
+							}
 						}
+					
+					} catch (JSONException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-				
-				} catch (JSONException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
-				
 			}
 		});
 		btnJoinGame.setFont(new Font("Consolas", Font.BOLD, 10));
@@ -260,8 +262,8 @@ public class GamePage extends JPanel {
 				
 			}
 		});
-		btnNewButton_1.setFont(new Font("Consolas", Font.PLAIN, 9));
-		btnNewButton_1.setBounds(359, 64, 75, 23);
+		btnNewButton_1.setFont(new Font("Consolas", Font.PLAIN, 8));
+		btnNewButton_1.setBounds(359, 64, 67, 23);
 		add(btnNewButton_1);
 
 	}
